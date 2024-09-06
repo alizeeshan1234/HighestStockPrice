@@ -1,0 +1,50 @@
+#[derive(Debug)]
+struct Stock {
+    main_value: Vec<u32>,
+    max_value: Vec<u32>,
+}
+
+impl Stock {
+    fn new() -> Stock {
+        Stock {
+            main_value : Vec::new(),
+            max_value : Vec::new(),
+        }
+    }
+
+    fn add(&mut self , value : u32) {
+        self.main_value.push(value);
+
+        if self.max_value.is_empty() {
+            self.max_value.push(value);
+        }else if value > self.max_value[0] {
+            self.max_value[0] = value;
+        }
+    }
+
+    fn pop(&mut self){
+        self.main_value.pop();
+    }
+
+    fn get_max_value(&self){
+        println!("Max Value :");
+        for value in &self.max_value {
+            println!("{}" , value);
+        }
+    }
+}
+
+fn main(){
+    let mut new_stock = Stock::new();
+    new_stock.add(1);
+    new_stock.add(2);
+    new_stock.add(3);
+    println!("Max Value previous week : ");
+    new_stock.get_max_value();
+    new_stock.pop();
+    new_stock.pop();
+    new_stock.add(8);
+    println!("Max value for this week : ");
+    new_stock.get_max_value();
+    println!("{:?}" , new_stock.max_value);
+}
